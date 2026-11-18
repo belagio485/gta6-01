@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marisol Bay — Open-World Crime Game</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./styles.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="app"></div>
+
+<!-- In-game HUD -->
+<div id="hud" class="hidden">
+  <div id="objective-panel">
+    <div id="objective-title">FREE ROAM</div>
+    <div id="objective-text">Explore Marisol Bay. Press E near a car to drive it.</div>
+    <div id="objective-timer" class="hidden"></div>
+  </div>
+  <div id="stats-panel">
+    <div id="money">$0</div>
+    <div id="wanted"></div>
+    <div id="clock">12:00</div>
+  </div>
+  <div id="minimap-wrap">
+    <canvas id="minimap" width="220" height="220"></canvas>
+    <div id="health-bar"><div id="health-fill"></div></div>
+    <div id="armor-bar"><div id="armor-fill"></div></div>
+  </div>
+  <div id="vehicle-panel">
+    <div id="speed">0</div>
+    <div id="speed-unit">MPH</div>
+    <div id="vehicle-name"></div>
+  </div>
+  <div id="weapon-panel">
+    <div id="weapon-name">PISTOL</div>
+    <div id="ammo">12 / ∞</div>
+  </div>
+  <div id="crosshair" class="hidden"><span></span></div>
+  <div id="hitmarker" class="hidden">✕</div>
+  <div id="interact-prompt" class="hidden"></div>
+  <div id="edge-arrow" class="hidden">➤</div>
+  <div id="toast-stack"></div>
+  <div id="banner" class="hidden"></div>
+  <div id="dialogue" class="hidden">
+    <div id="dialogue-speaker"></div>
+    <div id="dialogue-text"></div>
+    <div id="dialogue-hint">Press E to continue</div>
+  </div>
+  <div id="damage-vignette" class="hidden"></div>
+  <div id="fade-black" class="hidden"></div>
+</div>
+
+<!-- Busted / Wasted overlays -->
+<div id="busted-screen" class="hidden end-screen"><div class="end-title">BUSTED</div><div class="end-sub">The Marisol Bay police took you in. You lost $200 bail.</div></div>
+<div id="wasted-screen" class="hidden end-screen"><div class="end-title">WASTED</div><div class="end-sub">You wake up at St. Aurelia Hospital, $300 poorer.</div></div>
+
+<!-- Start screen -->
+<div id="start-screen">
+  <div class="menu-bg"></div>
+  <div class="menu-content">
+    <div class="game-kicker">A SUN-SOAKED OPEN-WORLD CRIME STORY</div>
+    <h1 class="game-title">MARISOL<br>BAY</h1>
+    <p class="game-tagline">Nadia Cole owes $50,000 to the wrong people. Drive fast, shoot straight, and buy back your freedom — one job at a time.</p>
+    <div class="menu-buttons">
+      <button id="btn-new-game" class="menu-btn primary">NEW GAME</button>
+      <button id="btn-continue" class="menu-btn hidden">CONTINUE</button>
+      <button id="btn-howto" class="menu-btn">HOW TO PLAY</button>
+      <button id="btn-sound" class="menu-btn">SOUND: ON</button>
+    </div>
+    <div id="howto-panel" class="hidden">
+      <h3>CONTROLS</h3>
+      <table>
+        <tr><td>W A S D</td><td>Move / drive</td></tr>
+        <tr><td>Mouse</td><td>Look around / aim</td></tr>
+        <tr><td>Left click</td><td>Shoot</td></tr>
+        <tr><td>E</td><td>Enter / exit car, talk, interact</td></tr>
+        <tr><td>Space</td><td>Jump / handbrake</td></tr>
+        <tr><td>Shift</td><td>Sprint</td></tr>
+        <tr><td>R</td><td>Reload</td></tr>
+        <tr><td>1 / 2</td><td>Pistol / SMG</td></tr>
+        <tr><td>H</td><td>Horn</td></tr>
+        <tr><td>C</td><td>Camera distance</td></tr>
+        <tr><td>M</td><td>Music on / off</td></tr>
+        <tr><td>P / Esc</td><td>Pause</td></tr>
+      </table>
+      <p>Steal cars, take taxi fares, find 10 hidden packages, and follow the <b>yellow marker</b> for the next story mission. Lose the cops by breaking line of sight — or pay for a respray at Marisol Motors.</p>
+    </div>
+    <div class="menu-foot">An original game. Marisol Bay, its people and its story are fiction. No network needed — everything runs from these files.</div>
+  </div>
+</div>
+
+<!-- Pause menu -->
+<div id="pause-menu" class="hidden">
+  <div class="menu-content small">
+    <h2 class="pause-title">PAUSED</h2>
+    <div id="pause-stats"></div>
+    <div class="menu-buttons">
+      <button id="btn-resume" class="menu-btn primary">RESUME</button>
+      <button id="btn-save" class="menu-btn">SAVE GAME</button>
+      <button id="btn-restart-mission" class="menu-btn">RESTART MISSION</button>
+      <button id="btn-quit-menu" class="menu-btn">QUIT TO MENU</button>
+    </div>
+    <p class="menu-foot">Progress saves automatically after every mission.</p>
+  </div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
